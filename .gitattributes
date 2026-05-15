@@ -1,0 +1,7 @@
+# Игнорируем сторонние JS библиотеки в статистике GitHub
+frontend/src/jsMain/resources/skiko.js linguist-generated=true
+
+*.wasm linguist-generated=true
+
+# На всякий случай помечаем всю папку build как сгенерированную
+frontend/build/** linguist-generated=true
