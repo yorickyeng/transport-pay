@@ -1,0 +1,14 @@
+# --- Общие ---
+.idea/
+*.DS_Store
+
+# --- Фронтенд (Kotlin/JS) ---
+frontend/.gradle/
+frontend/build/
+frontend/.kotlin-js-store/
+frontend/kotlin-js-store/
+
+# --- Бэкенд (Go) ---
+backend/transport_pay.db*
+backend/transport-pay-api
+backend/docs/
