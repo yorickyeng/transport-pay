@@ -12,16 +12,19 @@ repositories {
     mavenCentral()
 }
 
-
 kotlin {
+    applyDefaultHierarchyTemplate()
+    
     js(IR) {
         moduleName = "transport-pay-frontend"
         browser()
         binaries.executable()
     }
 
+    jvm("desktop")
+
     sourceSets {
-        val jsMain by getting {
+        val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -31,9 +34,8 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 
-                // Ktor Client для HTTP запросов
+                // Ktor Client Core
                 implementation("io.ktor:ktor-client-core:2.3.7")
-                implementation("io.ktor:ktor-client-js:2.3.7")
                 implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
                 
@@ -47,6 +49,30 @@ kotlin {
                 implementation("io.insert-koin:koin-core:3.5.3")
             }
         }
+
+        val jsMain by getting {
+            dependsOn(commonMain)
+            dependencies {
+                implementation("io.ktor:ktor-client-js:2.3.7")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.7.3")
+            }
+        }
+
+        val desktopMain by getting {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation("io.ktor:ktor-client-cio:2.3.7")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.3")
+                implementation("com.fazecast:jSerialComm:2.10.4")
+            }
+        }
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.transportpay.MainKt"
     }
 }
 
