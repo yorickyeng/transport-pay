@@ -14,7 +14,7 @@ import kotlinx.serialization.json.Json
 import com.transportpay.data.models.*
 
 class ApiClient(
-    private val baseUrl: String = "http://localhost:8080/api/v1",
+    private val baseUrl: String = "http://127.0.0.1:8888/api/v1",
 ) {
     private val client = HttpClient {
         install(ContentNegotiation) {
