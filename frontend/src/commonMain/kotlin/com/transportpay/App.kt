@@ -40,7 +40,7 @@ import com.transportpay.ui.screens.users.UsersScreen
 import com.transportpay.ui.theme.TransportPayTheme
 
 @Composable
-fun App() {
+fun App(nfcService: NfcService? = null) {
     val apiClient = remember { ApiClient() }
     val isLoggedIn = TokenStorage.isLoggedIn()
     val isAdmin = TokenStorage.userIsAdmin
@@ -108,7 +108,7 @@ fun App() {
                                 Screen.Transactions -> TransactionsScreen(apiClient)
                                 Screen.Keys -> KeysScreen(apiClient, isAdmin)
                                 Screen.Users -> if (isAdmin) UsersScreen(apiClient) else AccessDeniedScreen()
-                                Screen.Simulator -> SimulatorScreen(apiClient)
+                                Screen.Simulator -> SimulatorScreen(apiClient, nfcService)
                                 Screen.Settings -> SettingsScreen(darkTheme, { d -> darkTheme = d }) { currentScreen = Screen.Login }
                                 else -> {}
                             }
